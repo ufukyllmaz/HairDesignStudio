@@ -53,60 +53,71 @@ public class ReservationsController : Controller
     }
 
     [HttpPost]
-    public IActionResult SelectTime(int workerId, int operationId, DateTime selectedDate)
+    public async Task<IActionResult> SelectTime(int workerId, int operationId, DateTime selectedDate)
     {
-        var operation = _context.Operations.Find(operationId);
-        var worker = _context.Workers.Find(workerId);
-        
-        if (operation == null || worker == null)
+        try
         {
-            return RedirectToAction(nameof(Create));
-        }
-
-        var existingReservations = _context.Reservations
-            .Where(r => r.WorkerId == workerId && r.ReservationDate.Date == selectedDate.Date)
-            .ToList();
-
-        var availableSlots = new List<TimeViewModel>();
-        var startTime = TimeSpan.FromHours(9);
-        var endTime = TimeSpan.FromHours(19);
-
-        while (startTime.Add(TimeSpan.FromMinutes(operation.OperationDuration)) <= endTime)
-        {
-            bool isSlotAvailable = true;
-            foreach (var reservation in existingReservations)
+            var operation = await _context.Operations.FindAsync(operationId);
+            var worker = await _context.Workers.FindAsync(workerId);
+            
+            if (operation == null || worker == null)
             {
-                if (startTime < reservation.ReservationTime.Add(TimeSpan.FromMinutes(operation.OperationDuration)) &&
-                    startTime.Add(TimeSpan.FromMinutes(operation.OperationDuration)) > reservation.ReservationTime)
-                {
-                    isSlotAvailable = false;
-                    break;
-                }
+                return RedirectToAction(nameof(Create));
             }
 
-            if (isSlotAvailable)
+            // O güne ait tüm rezervasyonları getir
+            var existingReservations = await _context.Reservations
+                .Where(r => r.WorkerId == workerId && r.ReservationDate.Date == selectedDate.Date)
+                .Include(r => r.Operation)  // İşlem süresini alabilmek için
+                .ToListAsync();
+
+            var allTimeSlots = new List<TimeViewModel>();
+            var startTime = TimeSpan.FromHours(9);  // 09:00
+            var endTime = TimeSpan.FromHours(19);   // 19:00
+
+            while (startTime.Add(TimeSpan.FromMinutes(operation.OperationDuration)) <= endTime)
             {
-                availableSlots.Add(new TimeViewModel 
+                bool isSlotAvailable = true;
+                foreach (var reservation in existingReservations)
+                {
+                    // Bu zaman diliminde çakışma var mı kontrol et
+                    if (startTime < reservation.ReservationTime.Add(TimeSpan.FromMinutes(reservation.Operation.OperationDuration)) &&
+                        startTime.Add(TimeSpan.FromMinutes(operation.OperationDuration)) > reservation.ReservationTime)
+                    {
+                        isSlotAvailable = false;
+                        break;
+                    }
+                }
+
+                allTimeSlots.Add(new TimeViewModel 
                 { 
                     Time = startTime,
-                    DisplayTime = startTime.ToString(@"hh\:mm")
+                    DisplayTime = startTime.ToString(@"hh\:mm"),
+                    IsAvailable = isSlotAvailable,
+                    ExistingReservation = existingReservations
+                        .FirstOrDefault(r => r.ReservationTime == startTime)
                 });
+
+                startTime = startTime.Add(TimeSpan.FromHours(1));
             }
 
-            startTime = startTime.Add(TimeSpan.FromHours(1));
+            var viewModel = new TimeSelectionViewModel
+            {
+                SelectedDate = selectedDate,
+                WorkerId = workerId,
+                OperationId = operationId,
+                Worker = worker,
+                Operation = operation,
+                AllTimeSlots = allTimeSlots  // Tüm zaman dilimlerini gönder
+            };
+
+            return View(viewModel);
         }
-
-        var viewModel = new TimeSelectionViewModel
+        catch (Exception ex)
         {
-            SelectedDate = selectedDate,
-            WorkerId = workerId,
-            OperationId = operationId,
-            Worker = worker,
-            Operation = operation,
-            AvailableSlots = availableSlots
-        };
-
-        return View(viewModel);
+            TempData["Error"] = "Bir hata oluştu: " + ex.Message;
+            return RedirectToAction(nameof(Create));
+        }
     }
 
     [HttpPost]

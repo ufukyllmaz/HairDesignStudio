@@ -14,25 +14,47 @@
         <p>Seçilen Personel: @Model.Worker.WorkerName @Model.Worker.WorkerSurname</p>
     </div>
 
-    <form asp-action="Confirm" asp-controller="Reservations" method="post">
-        <input type="hidden" name="SelectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
-        <input type="hidden" name="WorkerId" value="@Model.WorkerId" />
-        <input type="hidden" name="OperationId" value="@Model.OperationId" />
+    <form asp-action="Confirm" method="post">
+        <input type="hidden" name="selectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+        <input type="hidden" name="workerId" value="@Model.WorkerId" />
+        <input type="hidden" name="operationId" value="@Model.OperationId" />
 
         <div class="row row-cols-2 row-cols-md-4 g-4">
-            @foreach (var slot in Model.AvailableSlots)
+            @foreach (var slot in Model.AllTimeSlots)
             {
                 <div class="col">
-                    <button type="submit" name="SelectedTime" value="@slot.Time.ToString()" class="btn btn-outline-primary w-100">
-                        @slot.DisplayTime
-                    </button>
+                    @if (slot.IsAvailable)
+                    {
+                        <button type="submit" name="selectedTime" value="@slot.Time.ToString()" 
+                                class="btn btn-outline-primary w-100">
+                            @slot.DisplayTime
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-secondary w-100" disabled>
+                            @slot.DisplayTime
+                            <small class="d-block">Dolu</small>
+                        </button>
+                    }
                 </div>
             }
         </div>
 
         <div class="mt-4">
-            <a asp-controller="Reservations" asp-action="SelectService" asp-route-selectedDate="@Model.SelectedDate.ToString("yyyy-MM-dd")" 
+            <a asp-action="SelectService" 
+               asp-route-selectedDate="@Model.SelectedDate.ToString("yyyy-MM-dd")" 
                class="btn btn-secondary">Geri Dön</a>
         </div>
     </form>
 </div>
+
+<style>
+    .btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+    .btn small {
+        font-size: 0.75rem;
+    }
+</style>

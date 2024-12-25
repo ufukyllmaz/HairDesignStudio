@@ -286,3 +286,4 @@
 /Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesginStudio/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Drawing.Common.dll
 /Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesginStudio/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Security.Cryptography.ProtectedData.dll
 /Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesginStudio/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Windows.Extensions.dll
+/Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesginStudio/obj/Debug/net8.0/HairDesginStudio.sourcelink.json

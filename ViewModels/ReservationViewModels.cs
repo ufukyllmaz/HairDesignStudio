@@ -17,6 +17,8 @@ namespace HairDesginStudio.ViewModels
     {
         public TimeSpan Time { get; set; }
         public string DisplayTime { get; set; }
+        public bool IsAvailable { get; set; }
+        public Reservations ExistingReservation { get; set; }
     }
 
     public class TimeSelectionViewModel
@@ -27,6 +29,7 @@ namespace HairDesginStudio.ViewModels
         public Workers Worker { get; set; }
         public Operations Operation { get; set; }
         public List<TimeViewModel> AvailableSlots { get; set; }
+        public List<TimeViewModel> AllTimeSlots { get; set; }
         public TimeSpan SelectedTime { get; set; }
     }
 }
