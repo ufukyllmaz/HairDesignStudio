@@ -1,0 +1,79 @@
+@model IEnumerable<HairDesginStudio.Models.Reservations>
+@{
+    ViewData["Title"] = "Rezervasyonlarım";
+}
+
+<div class="container mt-4">
+    <h2>Rezervasyonlarım</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info mt-4">
+            Henüz bir rezervasyonunuz bulunmamaktadır.
+            <a asp-action="Create" class="alert-link">Yeni rezervasyon oluşturmak için tıklayın.</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive mt-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Tarih</th>
+                        <th>Saat</th>
+                        <th>İşlem</th>
+                        <th>Personel</th>
+                        <th>İşlem Süresi</th>
+                        <th>Fiyat</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reservation in Model)
+                    {
+                        <tr>
+                            <td>@reservation.ReservationDate.ToString("dd MMMM yyyy")</td>
+                            <td>@reservation.ReservationTime.ToString(@"hh\:mm")</td>
+                            <td>@reservation.Operation.OperationName</td>
+                            <td>@reservation.Worker.WorkerName @reservation.Worker.WorkerSurname</td>
+                            <td>@reservation.Operation.OperationDuration dk</td>
+                            <td>@reservation.Operation.OperationPrice ₺</td>
+                            <td>
+                                @if (reservation.ReservationDate.Date > DateTime.Today || 
+                                    (reservation.ReservationDate.Date == DateTime.Today && 
+                                     reservation.ReservationTime > DateTime.Now.TimeOfDay))
+                                {
+                                    <span class="badge bg-success">Aktif</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Geçmiş</span>
+                                }
+                            </td>
+                            <td>
+                                @if (reservation.ReservationDate.Date > DateTime.Today || 
+                                    (reservation.ReservationDate.Date == DateTime.Today && 
+                                    reservation.ReservationTime > DateTime.Now.TimeOfDay))
+                                {
+                                    <form asp-action="CancelReservation" method="post" 
+                                        onsubmit="return confirm('Rezervasyonunuzu iptal etmek istediğinize emin misiniz?');">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@reservation.ReservationId" />
+                                        <div class="btn-group">
+                                            <button type="submit" class="btn btn-sm btn-danger">İptal Et</button>
+                                        </div>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <div class="mt-4">
+        <a asp-action="Create" class="btn btn-primary">Yeni Rezervasyon</a>
+    </div>
+</div>

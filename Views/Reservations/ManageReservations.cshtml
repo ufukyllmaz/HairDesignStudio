@@ -1,0 +1,95 @@
+@model IEnumerable<HairDesginStudio.Models.Reservations>
+@{
+    ViewData["Title"] = "Tüm Rezervasyonlar";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Tüm Rezervasyonlar</h2>
+        <a asp-action="Create" class="btn btn-primary">Yeni Rezervasyon</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            Henüz hiç rezervasyon bulunmamaktadır.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Müşteri</th>
+                        <th>Tarih</th>
+                        <th>Saat</th>
+                        <th>İşlem</th>
+                        <th>Personel</th>
+                        <th>İşlem Süresi</th>
+                        <th>Fiyat</th>
+                        <th>Durum</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reservation in Model)
+                    {
+                        <tr>
+                            <td>@reservation.User.UserName</td>
+                            <td>@reservation.ReservationDate.ToString("dd MMMM yyyy")</td>
+                            <td>@reservation.ReservationTime.ToString(@"hh\:mm")</td>
+                            <td>@reservation.Operation.OperationName</td>
+                            <td>@reservation.Worker.WorkerName @reservation.Worker.WorkerSurname</td>
+                            <td>@reservation.Operation.OperationDuration dk</td>
+                            <td>@reservation.Operation.OperationPrice ₺</td>
+                            <td>
+                                @if (reservation.ReservationDate.Date > DateTime.Today || 
+                                    (reservation.ReservationDate.Date == DateTime.Today && 
+                                     reservation.ReservationTime > DateTime.Now.TimeOfDay))
+                                {
+                                    <span class="badge bg-success">Aktif</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Geçmiş</span>
+                                }
+                            </td>
+                            <td>
+                                <form asp-action="AdminCancelReservation" method="post" 
+                                    onsubmit="return confirm('Bu rezervasyonu iptal etmek istediğinize emin misiniz?');">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@reservation.ReservationId" />
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-sm btn-danger">İptal Et</button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@* @section Scripts {
+    <script>
+        function confirmCancel(id) {
+            if (confirm('Bu rezervasyonu iptal etmek istediğinize emin misiniz?')) {
+                fetch('/Reservations/CancelReservation/' + id, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        @Html.AntiForgeryToken()
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+    </script> 
+}*@

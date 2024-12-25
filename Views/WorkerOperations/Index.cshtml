@@ -1,0 +1,51 @@
+@model IEnumerable<HairDesginStudio.Models.WorkerOperations>
+
+@{
+    ViewData["Title"] = "Çalışan Yetkinlikleri";
+}
+
+<h1>Çalışan Yetkinlikleri</h1>
+
+<p>
+    @if (User.IsInRole("Admin")){
+        <a asp-action="Create">Yeni Çalışan Yetkinliği Ekle</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkerSurname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkerHasOperations)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkerSurname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkerHasOperations)
+            </td>
+            @if (User.IsInRole("Admin")){
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.WorkerId">Düzenle</a> |
+                    <a asp-action="Details" asp-route-id="@item.WorkerId">Ayrıntılar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.WorkerId">Sil</a>
+                </td>
+            }
+        </tr>
+}
+    </tbody>
+</table>

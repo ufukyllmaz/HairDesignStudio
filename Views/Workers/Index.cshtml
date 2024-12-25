@@ -1,0 +1,72 @@
+@model IEnumerable<HairDesginStudio.Models.Workers>
+
+@{
+    ViewData["Title"] = "Çalışanlar";
+}
+
+<h1>Çalışanlar</h1>
+
+<p>
+    @if (User.IsInRole("Admin")){
+        <a asp-action="Create">Yeni Çalışan Ekle</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkerSurname)
+            </th>
+            @if (User.IsInRole("Admin")){
+                <th>
+                    @Html.DisplayNameFor(model => model.WorkerPhoneNumber)
+                </th>
+            
+                <th>
+                    @Html.DisplayNameFor(model => model.WorkerAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WorkerEMail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WorkerStartDate)
+                </th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkerSurname)
+            </td>
+            @if (User.IsInRole("Admin")){
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkerPhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkerAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkerEMail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkerStartDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.WorkerId">Düzenle</a> |
+                    <a asp-action="Details" asp-route-id="@item.WorkerId">Ayrıntılar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.WorkerId">Sil</a>
+                </td>
+            }
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,39 @@
+@model HairDesginStudio.Models.Operations
+
+@{
+    ViewData["Title"] = "Sil";
+}
+
+<h1>Sil</h1>
+
+<h3>Bu hizmeti silmek istediğinizden emin misiniz?</h3>
+<div>
+    <h4>Hizmetler</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OperationName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OperationName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OperationPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OperationPrice)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OperationDuration)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OperationDuration)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="OperationId" />
+        <input type="submit" value="Sil" class="btn btn-danger" /> |
+        <a asp-action="Index">Listeye Geri Dön</a>
+    </form>
+</div>

@@ -1,0 +1,48 @@
+@using HairDesginStudio.ViewModels
+@model ServiceSelectionViewModel
+@{
+    ViewData["Title"] = "İşlem ve Personel Seçimi";
+}
+
+<div class="container">
+    <h2 class="mb-4">Rezervasyon Oluştur</h2>
+    <h4>Adım 2: İşlem ve Personel Seçin</h4>
+    <p>Seçilen Tarih: @Model.SelectedDate.ToString("dd MMMM yyyy, dddd")</p>
+
+    <form asp-action="SelectTime" method="post">
+        <input type="hidden" name="selectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+        
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">İşlem Seçin</label>
+                <select name="operationId" class="form-select" required>
+                    <option value="">İşlem Seçin</option>
+                    @foreach (var operation in Model.Operations)
+                    {
+                        <option value="@operation.OperationId">
+                            @operation.OperationName (@operation.OperationDuration dk - @operation.OperationPrice TL)
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Personel Seçin</label>
+                <select name="workerId" class="form-select" required>
+                    <option value="">Personel Seçin</option>
+                    @foreach (var worker in Model.Workers)
+                    {
+                        <option value="@worker.WorkerId">
+                            @worker.WorkerName @worker.WorkerSurname
+                        </option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Devam Et</button>
+            <a asp-action="Create" class="btn btn-secondary">Geri Dön</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,58 @@
+@model HairDesginStudio.Models.Workers
+
+@{
+    ViewData["Title"] = "Çalışanlar";
+}
+
+<h1>Çalışan Ekle</h1>
+
+<h4>Çalışanlar</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="WorkerName" class="control-label"></label>
+                <input asp-for="WorkerName" class="form-control" />
+                <span asp-validation-for="WorkerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkerSurname" class="control-label"></label>
+                <input asp-for="WorkerSurname" class="form-control" />
+                <span asp-validation-for="WorkerSurname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkerPhoneNumber" class="control-label"></label>
+                <input asp-for="WorkerPhoneNumber" class="form-control" />
+                <span asp-validation-for="WorkerPhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkerAddress" class="control-label"></label>
+                <input asp-for="WorkerAddress" class="form-control" />
+                <span asp-validation-for="WorkerAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkerEMail" class="control-label"></label>
+                <input asp-for="WorkerEMail" class="form-control" />
+                <span asp-validation-for="WorkerEMail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkerStartDate" class="control-label"></label>
+                <input asp-for="WorkerStartDate" class="form-control" />
+                <span asp-validation-for="WorkerStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Çalışan Ekle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Listeye Geri Dön</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

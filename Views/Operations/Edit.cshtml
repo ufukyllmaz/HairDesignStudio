@@ -1,0 +1,44 @@
+@model HairDesginStudio.Models.Operations
+
+@{
+    ViewData["Title"] = "Düzenle";
+}
+
+<h1>Düzenle</h1>
+
+<h4>Hizmetler</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OperationId" />
+            <div class="form-group">
+                <label asp-for="OperationName" class="control-label"></label>
+                <input asp-for="OperationName" class="form-control" />
+                <span asp-validation-for="OperationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OperationPrice" class="control-label"></label>
+                <input asp-for="OperationPrice" class="form-control" />
+                <span asp-validation-for="OperationPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OperationDuration" class="control-label"></label>
+                <input asp-for="OperationDuration" class="form-control" />
+                <span asp-validation-for="OperationDuration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Listeye Geri Dön</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

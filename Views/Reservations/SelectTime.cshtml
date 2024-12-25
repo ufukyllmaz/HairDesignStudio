@@ -1,0 +1,38 @@
+@using HairDesginStudio.ViewModels
+@model TimeSelectionViewModel
+@{
+    ViewData["Title"] = "Saat Seçimi";
+}
+
+<div class="container">
+    <h2 class="mb-4">Rezervasyon Oluştur</h2>
+    <h4>Adım 3: Saat Seçin</h4>
+    
+    <div class="mb-4">
+        <p>Seçilen Tarih: @Model.SelectedDate.ToString("dd MMMM yyyy, dddd")</p>
+        <p>Seçilen İşlem: @Model.Operation.OperationName (@Model.Operation.OperationDuration dk)</p>
+        <p>Seçilen Personel: @Model.Worker.WorkerName @Model.Worker.WorkerSurname</p>
+    </div>
+
+    <form asp-action="Confirm" asp-controller="Reservations" method="post">
+        <input type="hidden" name="SelectedDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+        <input type="hidden" name="WorkerId" value="@Model.WorkerId" />
+        <input type="hidden" name="OperationId" value="@Model.OperationId" />
+
+        <div class="row row-cols-2 row-cols-md-4 g-4">
+            @foreach (var slot in Model.AvailableSlots)
+            {
+                <div class="col">
+                    <button type="submit" name="SelectedTime" value="@slot.Time.ToString()" class="btn btn-outline-primary w-100">
+                        @slot.DisplayTime
+                    </button>
+                </div>
+            }
+        </div>
+
+        <div class="mt-4">
+            <a asp-controller="Reservations" asp-action="SelectService" asp-route-selectedDate="@Model.SelectedDate.ToString("yyyy-MM-dd")" 
+               class="btn btn-secondary">Geri Dön</a>
+        </div>
+    </form>
+</div>

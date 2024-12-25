@@ -1,0 +1,28 @@
+@using HairDesginStudio.ViewModels
+@model List<DateTime>
+@{
+    ViewData["Title"] = "Yeni Rezervasyon";
+}
+
+<div class="container">
+    <h2 class="mb-4">Rezervasyon Oluştur</h2>
+    <div class="row">
+        <div class="col">
+            <h4>Adım 1: Tarih Seçin</h4>
+            <div class="row row-cols-2 row-cols-md-4 g-4">
+                @foreach (var date in Model)
+                {
+                    <div class="col">
+                        <form asp-controller="Reservations" asp-action="SelectService" method="post">
+                            <input type="hidden" name="selectedDate" value="@date.ToString("yyyy-MM-dd")" />
+                            <button type="submit" class="btn btn-outline-primary w-100 p-3">
+                                <div>@date.ToString("dd MMMM")</div>
+                                <small>@date.ToString("dddd")</small>
+                            </button>
+                        </form>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+@model HairDesginStudio.Models.WorkerOperations
+
+@{
+    ViewData["Title"] = "Yeni Çalışan Yetkinliği Ekle";
+}
+
+<h1>Yeni Çalışan Yetkinliği Ekle</h1>
+
+<h4>Çalışan Yetkinlikleri</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateSurnames" method="post">
+            <div class="form-group">
+                <label asp-for="WorkerName" class="control-label"></label>
+                <select asp-for="WorkerName" class="form-control" 
+                        asp-items="ViewBag.WorkerNames"
+                        onchange="this.form.submit()"> @*Yapılan seçime göre soyismi getirmek için*@
+                    <option value="" disabled selected>-- Çalışan İsmi Seçiniz --</option>
+                </select>
+                <span asp-validation-for="WorkerName" class="text-danger"></span>
+            </div>
+        </form>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="WorkerName" />
+            <div class="form-group">
+                <label asp-for="WorkerSurname" class="control-label"></label>
+                <select asp-for="WorkerSurname" class="form-control" asp-items="ViewBag.WorkerSurnames">
+                    <option value="" disabled selected>-- Çalışan Soyismi Seçiniz --</option>
+                </select>
+                <span asp-validation-for="WorkerSurname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkerHasOperations" class="control-label"></label>
+                <select asp-for="WorkerHasOperations" class="form-control" asp-items="ViewBag.Operations" multiple>
+                    <option value="" disabled selected>-- Yetkinlik Seçiniz --</option>
+                </select>
+                <span asp-validation-for="WorkerHasOperations" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Yeni Çalışan Yetkinliği Ekle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Listeye Geri Dön</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
