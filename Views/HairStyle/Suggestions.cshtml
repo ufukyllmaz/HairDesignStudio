@@ -1,0 +1,56 @@
+@model HairDesginStudio.ViewModels.HairStyleViewModel
+@{
+    ViewData["Title"] = "Hairstyle Suggestions";
+}
+
+<div class="container mt-5">
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.ErrorMessage
+        </div>
+    }
+    
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <h2 class="text-center">Your Hairstyle Suggestions</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (Model.GeneratedStyles != null && Model.GeneratedStyles.Any())
+        {
+            foreach (var styleUrl in Model.GeneratedStyles)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <img src="@styleUrl" 
+                             class="card-img-top" 
+                             alt="Suggested Hairstyle"
+                             style="height: 300px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Style Suggestion</h5>
+                            <a href="@styleUrl" 
+                               class="btn btn-primary" 
+                               target="_blank">View Full Size</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center">
+                <p>No styles generated yet. Please try again.</p>
+            </div>
+        }
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <a asp-controller="HairStyle" 
+               asp-action="Index" 
+               class="btn btn-secondary">Try Another Photo</a>
+        </div>
+    </div>
+</div>

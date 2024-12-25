@@ -32,4 +32,11 @@ namespace HairDesginStudio.ViewModels
         public List<TimeViewModel> AllTimeSlots { get; set; }
         public TimeSpan SelectedTime { get; set; }
     }
+    public class HairStyleViewModel
+    {
+        public List<string> GeneratedStyles { get; set; } = new List<string>();
+        public string ErrorMessage { get; set; }
+        public string InfoMessage { get; set; }
+        public bool IsLoading { get; set; }
+    }
 }

@@ -1,0 +1,76 @@
+@* Views/HairStyle/Index.cshtml *@
+@model HairDesginStudio.ViewModels.HairStyleViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="text-center mb-0">Saç Stili Önerileri</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("GenerateStyles", "HairStyle", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="mb-3">
+                            <label for="photo" class="form-label">Fotoğrafınızı Yükleyin</label>
+                            <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" @(Model.IsLoading ? "disabled" : "")>
+                            @if (Model.IsLoading)
+                            {
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            }
+                            @(Model.IsLoading ? "İşleniyor..." : "Stil Oluştur")
+                        </button>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-danger mt-3">
+                            <i class="fas fa-exclamation-circle"></i> @Model.ErrorMessage
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.InfoMessage))
+                    {
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle"></i> @Model.InfoMessage
+                        </div>
+                    }
+
+                    @if (Model.GeneratedStyles?.Any() == true)
+                    {
+                        <div class="mt-4">
+                            <h4>Önerilen Stiller</h4>
+                            <div class="row">
+                                @foreach (var style in Model.GeneratedStyles)
+                                {
+                                    <div class="col-12 mb-3">
+                                        <div class="card">
+                                            <img src="@style" class="card-img-top" alt="Önerilen Saç Stili">
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Fotoğraf yükleme önizlemesi için
+        document.getElementById('photo').addEventListener('change', function (e) {
+            if (e.target.files && e.target.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // Önizleme görüntüsünü göster
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+    </script>
+}

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using HairDesginStudio.Data;
 using HairDesginStudio.Models;
+using HairDesginStudio.Services;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +32,10 @@ builder.Services.AddIdentity<AdvanceUser, IdentityRole>(options => {
     .AddDefaultUI();
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddScoped<IHairStyleService, OpenAIService>();
 
 var app = builder.Build();
 
