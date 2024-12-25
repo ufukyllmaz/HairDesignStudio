@@ -21,7 +21,6 @@ public class ReservationsController : Controller
         return RedirectToAction(nameof(Create));
     }
 
-    // İlk adım - Tarih seçimi
     public IActionResult Create()
     {
         var dates = Enumerable.Range(0, 7)
@@ -31,11 +30,9 @@ public class ReservationsController : Controller
         return View(dates);
     }
 
-    // İkinci adım - İşlem ve personel seçimi
     [HttpPost]
     public IActionResult SelectService(string selectedDate)
     {
-        // DateTime.Parse yerine DateTime.TryParse kullanıyoruz
         if (DateTime.TryParse(selectedDate, out DateTime date))
         {
             var viewModel = new ServiceSelectionViewModel
@@ -48,7 +45,6 @@ public class ReservationsController : Controller
             return View(viewModel);
         }
         
-        // Tarih dönüştürülemezse ana sayfaya geri dön
         return RedirectToAction(nameof(Create));
     }
 
@@ -108,7 +104,7 @@ public class ReservationsController : Controller
                 OperationId = operationId,
                 Worker = worker,
                 Operation = operation,
-                AllTimeSlots = allTimeSlots  // Tüm zaman dilimlerini gönder
+                AllTimeSlots = allTimeSlots
             };
 
             return View(viewModel);
@@ -125,10 +121,8 @@ public class ReservationsController : Controller
     {
         try
         {
-            // Zaman dilimini TimeSpan'e çevir
             var time = TimeSpan.Parse(selectedTime);
 
-            // Gerekli nesneleri veritabanından al
             var operation = await _context.Operations.FindAsync(operationId);
             var worker = await _context.Workers.FindAsync(workerId);
 
