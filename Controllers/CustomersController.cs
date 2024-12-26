@@ -8,152 +8,124 @@ using Microsoft.EntityFrameworkCore;
 using HairDesignStudio.Data;
 using HairDesignStudio.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using HairDesignStudio.ViewModels;
 
 namespace HairDesignStudio.Controllers
 {
     [Authorize]
     public class CustomersController : Controller
     {
+        private readonly UserManager<AdvanceUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public CustomersController(ApplicationDbContext context)
+        public CustomersController(UserManager<AdvanceUser> userManager, ApplicationDbContext context)
         {
+            _userManager = userManager;
             _context = context;
         }
 
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.ToListAsync());
-        }
+            var users = await _userManager.Users.ToListAsync();
+        
+            var customers = users.Select(u => new CustomerViewModel
+            {
+                Id = u.Id,
+                CustomerName = u.FirstName,
+                CustomerSurname = u.LastName,
+                CustomerEMail = u.Email,
+                CustomerPhoneNumber = u.PhoneNumber
+            }).ToList();
 
-        // GET: Customers/Details/5
-        public async Task<IActionResult> Details(int? id)
+            return View(customers);
+        }
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var customers = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customers == null)
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(customers);
-        }
-
-        // GET: Customers/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Customers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerId,CustomerName,CustomerSurname,CustomerPhoneNumber,CustomerEMail")] Customers customers)
-        {
-            if (ModelState.IsValid)
+            var customerViewModel = new CustomerViewModel
             {
-                _context.Add(customers);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(customers);
-        }
+                Id = user.Id,
+                CustomerName = user.FirstName,
+                CustomerSurname = user.LastName,
+                CustomerEMail = user.Email,
+                CustomerPhoneNumber = user.PhoneNumber
+            };
 
+            return View(customerViewModel);
+        }
         // GET: Customers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var customers = await _context.Customers.FindAsync(id);
-            if (customers == null)
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
-            return View(customers);
+
+            var customerViewModel = new CustomerViewModel
+            {
+                Id = user.Id,
+                CustomerName = user.FirstName,
+                CustomerSurname = user.LastName,
+                CustomerEMail = user.Email,
+                CustomerPhoneNumber = user.PhoneNumber
+            };
+
+            return View(customerViewModel);
         }
 
         // POST: Customers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,CustomerName,CustomerSurname,CustomerPhoneNumber,CustomerEMail")] Customers customers)
+        public async Task<IActionResult> Edit(string id, CustomerViewModel model)
         {
-            if (id != customers.CustomerId)
+            if (id != model.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
+                var user = await _userManager.FindByIdAsync(id);
+                if (user == null)
                 {
-                    _context.Update(customers);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+
+                user.FirstName = model.CustomerName;
+                user.LastName = model.CustomerSurname;
+                user.PhoneNumber = model.CustomerPhoneNumber;
+
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
                 {
-                    if (!CustomersExists(customers.CustomerId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
             }
-            return View(customers);
+            return View(model);
         }
 
-        // GET: Customers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customers = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customers == null)
-            {
-                return NotFound();
-            }
-
-            return View(customers);
-        }
-
-        // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var customers = await _context.Customers.FindAsync(id);
-            if (customers != null)
-            {
-                _context.Customers.Remove(customers);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool CustomersExists(int id)
-        {
-            return _context.Customers.Any(e => e.CustomerId == id);
-        }
     }
 }

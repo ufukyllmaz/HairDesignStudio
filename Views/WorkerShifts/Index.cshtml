@@ -1,13 +1,13 @@
 @model IEnumerable<HairDesignStudio.Models.WorkerShifts>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Çalışan Vardiyaları";
 }
 
-<h1>Index</h1>
+<h1>Çalışan Vardiyaları</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Yeni Çalışan Vardiyası Ekle</a>
 </p>
 <table class="table">
     <thead>
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.WorkEndTime)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.WorkerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.WorkerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.WorkerId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.WorkerId">Düzenle</a> |
+                <a asp-action="Details" asp-route-id="@item.WorkerId">Ayrıntılar</a> |
+                <a asp-action="Delete" asp-route-id="@item.WorkerId">Sil</a>
             </td>
         </tr>
 }

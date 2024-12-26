@@ -12,6 +12,13 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"),
+    sqliteOptions => {
+        sqliteOptions.CommandTimeout(60);
+        sqliteOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+    }));
+
 //builder.Services.AddDefaultIdentity<AdvanceUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

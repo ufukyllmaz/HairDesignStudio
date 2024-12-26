@@ -73,10 +73,10 @@ namespace HairDesignStudio.Services
             
             if (string.IsNullOrWhiteSpace(userPrompt))
             {
-                return $"{basePrompt} modern and attractive. The image should be high quality, realistic, and focus on the hair styling. The image must be a men. It has to be a helper image for an hairdesigner.";
+                return $"{basePrompt} modern and attractive. The image should be high quality, realistic, and focus on the hair styling. The photo to be produced must be of a man. This photo should be a sample photo for the barber. The photo produced should be produced in accordance with the skin color, face shape, hair length and similar features of the person in the photo uploaded as a reference. For example, you cannot recommend a long hairstyle for someone with very short hair.";
             }
 
-            return $"{basePrompt} {userPrompt.Trim()}. The image should be high quality, realistic, and focus on the hair styling. The image must be a men. It has to be a helper image for an hairdesigner.";
+            return $"{basePrompt} {userPrompt.Trim()}. The image should be high quality, realistic, and focus on the hair styling. The photo to be produced must be of a man. This photo should be a sample photo for the barber. The photo produced should be produced in accordance with the skin color, face shape, hair length and similar features of the person in the photo uploaded as a reference. For example, you cannot recommend a long hairstyle for someone with very short hair.";
         }
     }
 

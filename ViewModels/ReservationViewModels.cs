@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using HairDesignStudio.Models;
@@ -38,5 +39,22 @@ namespace HairDesignStudio.ViewModels
         public string ErrorMessage { get; set; }
         public string InfoMessage { get; set; }
         public bool IsLoading { get; set; }
+    }
+
+    public class CustomerViewModel
+    {
+        public string Id { get; set; }
+
+        [Display(Name = "Ad")]
+        public string CustomerName { get; set; }
+
+        [Display(Name = "Soyad")]
+        public string CustomerSurname { get; set; }
+
+        [Display(Name = "E-posta")]
+        public string CustomerEMail { get; set; }
+
+        [Display(Name = "Telefon")]
+        public string CustomerPhoneNumber { get; set; }
     }
 }

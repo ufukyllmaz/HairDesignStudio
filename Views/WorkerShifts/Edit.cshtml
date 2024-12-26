@@ -1,12 +1,12 @@
 @model HairDesignStudio.Models.WorkerShifts
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Düzenle";
 }
 
-<h1>Edit</h1>
+<h1>Düzenle</h1>
 
-<h4>WorkerShifts</h4>
+<h4>Çalışan Vardiyaları</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -34,14 +34,14 @@
                 <span asp-validation-for="WorkEndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Listeye Geri Dön</a>
 </div>
 
 @section Scripts {
