@@ -5,7 +5,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace HairDesginStudio.Services
+namespace HairDesignStudio.Services
 {
     public class OpenAIService : IHairStyleService
     {
@@ -73,10 +73,10 @@ namespace HairDesginStudio.Services
             
             if (string.IsNullOrWhiteSpace(userPrompt))
             {
-                return $"{basePrompt} modern and attractive. The image should be high quality, realistic, and focus on the hair styling.";
+                return $"{basePrompt} modern and attractive. The image should be high quality, realistic, and focus on the hair styling. The image must be a men. It has to be a helper image for an hairdesigner.";
             }
 
-            return $"{basePrompt} {userPrompt.Trim()}. The image should be high quality, realistic, and focus on the hair styling.";
+            return $"{basePrompt} {userPrompt.Trim()}. The image should be high quality, realistic, and focus on the hair styling. The image must be a men. It has to be a helper image for an hairdesigner.";
         }
     }
 

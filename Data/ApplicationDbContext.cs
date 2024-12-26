@@ -1,8 +1,8 @@
-using HairDesginStudio.Models;
+using HairDesignStudio.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace HairDesginStudio.Data;
+namespace HairDesignStudio.Data;
 
 public class ApplicationDbContext : IdentityDbContext<AdvanceUser>
 {
@@ -41,11 +41,11 @@ public class ApplicationDbContext : IdentityDbContext<AdvanceUser>
         });
     }
 
-    public DbSet<HairDesginStudio.Models.Operations> Operations { get; set; } = default!;
-    public DbSet<HairDesginStudio.Models.Workers> Workers { get; set; } = default!;
-    public DbSet<HairDesginStudio.Models.WorkerOperations> WorkerOperations { get; set; } = default!;
-    public DbSet<HairDesginStudio.Models.Customers> Customers { get; set; } = default!;
-    public DbSet<HairDesginStudio.Models.Reservations> Reservations { get; set; } = default!;
-    public DbSet<HairDesginStudio.Models.WorkerShifts> WorkerShifts { get; set; } = default!;
+    public DbSet<HairDesignStudio.Models.Operations> Operations { get; set; } = default!;
+    public DbSet<HairDesignStudio.Models.Workers> Workers { get; set; } = default!;
+    public DbSet<HairDesignStudio.Models.WorkerOperations> WorkerOperations { get; set; } = default!;
+    public DbSet<HairDesignStudio.Models.Customers> Customers { get; set; } = default!;
+    public DbSet<HairDesignStudio.Models.Reservations> Reservations { get; set; } = default!;
+    public DbSet<HairDesignStudio.Models.WorkerShifts> WorkerShifts { get; set; } = default!;
 
 }

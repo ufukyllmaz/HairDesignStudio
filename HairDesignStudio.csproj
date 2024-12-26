@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-HairDesginStudio-c594388f-be98-42a6-ab1c-e25b144a3a9b</UserSecretsId>
+    <UserSecretsId>aspnet-HairDesignStudio-c594388f-be98-42a6-ab1c-e25b144a3a9b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

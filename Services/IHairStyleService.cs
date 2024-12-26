@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HairDesginStudio.Services
+namespace HairDesignStudio.Services
 {
     public interface IHairStyleService
     {

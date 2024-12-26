@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace HairDesginStudio.Data.Migrations
+namespace HairDesignStudio.Data.Migrations
 {
     /// <inheritdoc />
     public partial class operationsadded3 : Migration

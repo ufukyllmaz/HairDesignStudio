@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HairDesginStudio.Models;
+using HairDesignStudio.Models;
 
-namespace HairDesginStudio.ViewModels
+namespace HairDesignStudio.ViewModels
 {
     public class ServiceSelectionViewModel
     {

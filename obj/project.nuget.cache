@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "j0n7VYkXojA=",
+  "dgSpecHash": "K0U9NvGzo8Y=",
   "success": true,
-  "projectFilePath": "/Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesginStudio/HairDesginStudio.csproj",
+  "projectFilePath": "/Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesignStudio/HairDesignStudio.csproj",
   "expectedPackageFiles": [
     "/Users/gtmac22/.nuget/packages/azure.core/1.25.0/azure.core.1.25.0.nupkg.sha512",
     "/Users/gtmac22/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",

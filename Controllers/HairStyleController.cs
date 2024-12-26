@@ -5,10 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using HairDesginStudio.Services;
-using HairDesginStudio.ViewModels;
+using HairDesignStudio.Services;
+using HairDesignStudio.ViewModels;
 
-namespace HairDesginStudio.Controllers
+namespace HairDesignStudio.Controllers
 {
     [Route("[controller]")]
     public class HairStyleController : Controller

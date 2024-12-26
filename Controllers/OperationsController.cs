@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HairDesginStudio.Data;
-using HairDesginStudio.Models;
+using HairDesignStudio.Data;
+using HairDesignStudio.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace HairDesginStudio.Controllers
+namespace HairDesignStudio.Controllers
 {
     [Authorize]
     public class OperationsController : Controller

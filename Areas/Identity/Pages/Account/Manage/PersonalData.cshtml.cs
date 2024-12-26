@@ -2,13 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 using System;
 using System.Threading.Tasks;
-using HairDesginStudio.Models;
+using HairDesignStudio.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace HairDesginStudio.Areas.Identity.Pages.Account.Manage
+namespace HairDesignStudio.Areas.Identity.Pages.Account.Manage
 {
     public class PersonalDataModel : PageModel
     {

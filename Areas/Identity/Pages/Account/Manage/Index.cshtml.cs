@@ -6,12 +6,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using HairDesginStudio.Models;
+using HairDesignStudio.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace HairDesginStudio.Areas.Identity.Pages.Account.Manage
+namespace HairDesignStudio.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {

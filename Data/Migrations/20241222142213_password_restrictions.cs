@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace HairDesginStudio.Data.Migrations
+namespace HairDesignStudio.Data.Migrations
 {
     /// <inheritdoc />
     public partial class password_restrictions : Migration

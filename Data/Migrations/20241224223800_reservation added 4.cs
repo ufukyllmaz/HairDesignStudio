@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace HairDesginStudio.Data.Migrations
+namespace HairDesignStudio.Data.Migrations
 {
     /// <inheritdoc />
     public partial class reservationadded4 : Migration

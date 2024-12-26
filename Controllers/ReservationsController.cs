@@ -1,7 +1,7 @@
 using System.Security.Claims;
-using HairDesginStudio.Data;
-using HairDesginStudio.Models;
-using HairDesginStudio.ViewModels;
+using HairDesignStudio.Data;
+using HairDesignStudio.Models;
+using HairDesignStudio.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +29,7 @@ public class ReservationsController : Controller
         
         return View(dates);
     }
-
+    [HttpGet]
     [HttpPost]
     public IActionResult SelectService(string selectedDate)
     {

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using HairDesginStudio.Data;
-using HairDesginStudio.Models;
-using HairDesginStudio.Services;
+using HairDesignStudio.Data;
+using HairDesignStudio.Models;
+using HairDesignStudio.Services;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);

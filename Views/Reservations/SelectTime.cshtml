@@ -1,4 +1,4 @@
-@using HairDesginStudio.ViewModels
+@using HairDesignStudio.ViewModels
 @model TimeSelectionViewModel
 @{
     ViewData["Title"] = "Saat Seçimi";
@@ -43,7 +43,9 @@
 
         <div class="mt-4">
             <a asp-action="SelectService" 
-               asp-route-selectedDate="@Model.SelectedDate.ToString("yyyy-MM-dd")" 
+               asp-route-selectedDate="@Model.SelectedDate.ToString("yyyy-MM-dd")"
+               asp-route-workerId="@Model.WorkerId"
+               asp-route-operationId="@Model.OperationId"
                class="btn btn-secondary">Geri Dön</a>
         </div>
     </form>

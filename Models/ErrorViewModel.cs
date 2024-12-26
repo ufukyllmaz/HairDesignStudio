@@ -1,4 +1,4 @@
-namespace HairDesginStudio.Models;
+namespace HairDesignStudio.Models;
 
 public class ErrorViewModel
 {

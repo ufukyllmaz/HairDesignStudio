@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace HairDesginStudio.Models
+namespace HairDesignStudio.Models
 {
     public class AdvanceUser : IdentityUser
     {

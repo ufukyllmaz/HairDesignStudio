@@ -8460,11 +8460,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesginStudio/HairDesginStudio.csproj",
-      "projectName": "HairDesginStudio",
-      "projectPath": "/Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesginStudio/HairDesginStudio.csproj",
+      "projectUniqueName": "/Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesignStudio/HairDesignStudio.csproj",
+      "projectName": "HairDesignStudio",
+      "projectPath": "/Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesignStudio/HairDesignStudio.csproj",
       "packagesPath": "/Users/gtmac22/.nuget/packages/",
-      "outputPath": "/Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesginStudio/obj/",
+      "outputPath": "/Users/gtmac22/Desktop/Belgeler/master/BSM311-WEB/HairDesignStudio/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/gtmac22/.nuget/NuGet/NuGet.Config"
